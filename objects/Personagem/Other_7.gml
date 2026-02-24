@@ -1,6 +1,10 @@
 /// @description Finalizar Animações e Combos
 
-// --- 1. FIM DO DASH ESPECIAL ---
+// --- 1. FIM DA MORTE ---
+// (A morte agora é reiniciada com segurança direto no Step Event, 
+// então não precisamos de nenhum código aqui para evitar conflitos!)
+
+// --- 2. FIM DO DASH ESPECIAL ---
 if (estado == ESTADO.DASH_ESPECIAL) 
 {
     var distancia_tp = 200; 
@@ -18,39 +22,32 @@ if (estado == ESTADO.DASH_ESPECIAL)
     hsp = 0;
 }
 
-// --- 2. FIM DOS OUTROS DASHES ---
-if (estado == ESTADO.DASH || estado == ESTADO.DASH_ATAQUE) {
+// --- 3. FIM DO DASH OU DASH ATAQUE ---
+if (estado == ESTADO.DASH || estado == ESTADO.DASH_ATAQUE) 
+{
     estado = ESTADO.LIVRE;
     invencivel = false;
     hsp = 0;
 }
 
-// --- 3. FIM DO ATAQUE / COMBO (AQUI ESTAVA O ERRO) ---
+// --- 4. FIM DO ATAQUE / COMBO ---
 if (estado == ESTADO.ATAQUE) 
 {
-    estado = ESTADO.LIVRE; // Volta a poder andar/clicar
+    estado = ESTADO.LIVRE; 
 
-    // SE ACABOU O ATAQUE 1:
     if (sprite_index == Personagem_ataque_1) {
-        combo = 1;        // Diz que o passo 1 foi concluído
-        timer_combo = 30; // Dá 30 frames (0.5 seg) para clicar de novo
+        combo = 1;
+        timer_combo = 30; 
     }
-    
-    // SE ACABOU O ATAQUE 2 (Fim do combo):
-    else if (sprite_index == Personagem_ataque_2) {
-        combo = 0;        // Reseta tudo
-        timer_combo = 0;
-    }
-    
-    // SE ACABOU ATAQUES AÉREOS/OUTROS:
     else {
         combo = 0;
         timer_combo = 0;
     }
 }
 
-// --- 4. FIM DO HIT ---
-if (estado == ESTADO.HIT) {
+// --- 5. FIM DO HIT (Dano) ---
+if (estado == ESTADO.HIT) 
+{
     estado = ESTADO.LIVRE;
     hsp = 0;
 }

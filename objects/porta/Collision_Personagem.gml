@@ -9,3 +9,4 @@ if (target_room != -1)
     // Muda a sala
     room_goto(target_room);
 }
+
